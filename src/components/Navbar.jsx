@@ -2,35 +2,41 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-const ScalesOfJusticeIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-blue-600"><path strokeLinecap="round" strokeLinejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-16.5 0c-1.01.143-2.01.317-3 .52m0 0a2.25 2.25 0 00-2.25 2.25v9.75c0 1.243 1.007 2.25 2.25 2.25h13.5c1.243 0 2.25-1.007 2.25-2.25v-9.75a2.25 2.25 0 00-2.25-2.25h-4.5m-7.5 0h7.5" /></svg>
+const LogoIcon = () => (
+    <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: 'radial-gradient(circle, #fbbf24 0%, #f59e0b 100%)' }}>
+        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 11-2 0V4H6v12a1 1 0 11-2 0V4zm5 8a1 1 0 011-1h2a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd" />
+        </svg>
+    </div>
 );
 
 export default function Navbar() {
   const activeLinkStyle = {
     color: '#2563EB', // blue-600
-    fontWeight: '600',
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg shadow-sm">
-      <nav className="container mx-auto px-4 py-3 flex justify-between items-center">
-        <NavLink to="/" className="flex items-center gap-2">
-          <ScalesOfJusticeIcon />
-          <span className="text-2xl font-bold text-slate-900">DocuGen AI</span>
+    <header className="bg-white/95 backdrop-blur-lg shadow-sm border-b border-gray-200 sticky top-0 z-50">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
+        <NavLink to="/" className="flex items-center gap-3">
+          <LogoIcon />
+          <div>
+            <h1 className="text-xl font-bold text-gray-900">DocuGen AI</h1>
+            <p className="text-xs text-gray-500 -mt-1">AI-Powered Legal Docs</p>
+          </div>
         </NavLink>
-        <div className="hidden md:flex items-center gap-8 text-lg text-slate-600">
-          <NavLink to="/" style={({ isActive }) => isActive ? activeLinkStyle : undefined}>Home</NavLink>
-          <NavLink to="/about" style={({ isActive }) => isActive ? activeLinkStyle : undefined}>About</NavLink>
-          <NavLink to="/pricing" style={({ isActive }) => isActive ? activeLinkStyle : undefined}>Pricing</NavLink>
-          <NavLink to="/contact" style={({ isActive }) => isActive ? activeLinkStyle : undefined}>Contact</NavLink>
+        <div className="hidden md:flex items-center gap-8 text-base text-gray-700 font-medium">
+          <NavLink to="/" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="hover:text-blue-600 transition-colors">Home</NavLink>
+          <NavLink to="/about" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="hover:text-blue-600 transition-colors">About</NavLink>
+          <NavLink to="/pricing" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="hover:text-blue-600 transition-colors">Pricing</NavLink>
+          <NavLink to="/contact" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="hover:text-blue-600 transition-colors">Support</NavLink>
         </div>
         <motion.button 
           whileHover={{ scale: 1.05 }} 
           whileTap={{ scale: 0.95 }}
-          className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 transition-colors"
+          className="hidden md:block bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
         >
-          Get Started
+          Sign In
         </motion.button>
       </nav>
     </header>

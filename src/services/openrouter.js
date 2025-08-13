@@ -12,20 +12,11 @@ export async function generateDocument(prompt) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: "mistralai/mistral-7b-instruct", // Sticking with Mistral
+        model: "mistralai/mistral-7b-instruct",
         messages: [
-          // --- UPDATED & STRICTER PROMPT ---
           { 
             role: "system", 
-            content: `You are an expert legal assistant. Your task is to generate a formal, well-structured legal document based on the user's request.
-            CRITICAL INSTRUCTIONS:
-            1.  You MUST format the entire document using only HTML tags.
-            2.  Start the response DIRECTLY with the <h1> tag for the main title. Do NOT include the word "html" or any code fences like \`\`\`html.
-            3.  Use <h2> for major sections.
-            4.  Use <strong> for sub-headings or to emphasize text.
-            5.  Wrap all text paragraphs in <p> tags.
-            6.  Do NOT use Markdown (e.g., no **, ##, or -).
-            7.  Ensure there is absolutely no commentary, whitespace, or any characters after the final closing HTML tag of the document.`
+            content: "You are a machine that only generates legal documents formatted in valid HTML. You must not include any commentary, code fences, or any text outside of the HTML document itself. Your response must start directly with an `<h1>` tag and end with the final closing tag. Do not include extra quotes at the begining and at the end of the file. The file content should be set to a fixed length of a single pdf page not less nor more. Keep it in a FIXED format at ALL TIMES - within a border in the single pdf sheet."
           },
           { role: "user", content: prompt }
         ]
@@ -41,8 +32,11 @@ export async function generateDocument(prompt) {
     }
 
     if (data.choices && data.choices.length > 0 && data.choices[0].message?.content) {
-      // Trim the response to remove any potential leading/trailing whitespace
-      return data.choices[0].message.content.trim();
+      // --- ADDED CLEANUP LOGIC ---
+      // This removes the ```html and ``` from the response string.
+      let cleanedContent = data.choices[0].message.content.trim();
+      cleanedContent = cleanedContent.replace(/^```html/i, '').replace(/```$/, '');
+      return cleanedContent.trim();
     } else {
       throw new Error("Received an empty or invalid response from the AI.");
     }
