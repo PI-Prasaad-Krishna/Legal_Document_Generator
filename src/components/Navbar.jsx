@@ -1,6 +1,10 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useAuth } from '../context/AuthContext';
+import { signOut } from 'firebase/auth';
+import { auth } from '../config/firebase';
+import ProfileDropdown from './ProfileDropdown'; // Import the new component
 
 const LogoIcon = () => (
     <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: 'radial-gradient(circle, #fbbf24 0%, #f59e0b 100%)' }}>
@@ -11,6 +15,18 @@ const LogoIcon = () => (
 );
 
 export default function Navbar() {
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      navigate('/login'); // Redirect to login page after sign out
+    } catch (error) {
+      console.error("Failed to sign out", error);
+    }
+  };
+
   const activeLinkStyle = {
     color: '#2563EB', // blue-600
   };
@@ -21,7 +37,7 @@ export default function Navbar() {
         <NavLink to="/" className="flex items-center gap-3">
           <LogoIcon />
           <div>
-            <h1 className="text-xl font-bold text-gray-900">DocuGen AI</h1>
+            <h1 className="text-xl font-bold text-gray-900">LexiGen AI</h1>
             <p className="text-xs text-gray-500 -mt-1">AI-Powered Legal Docs</p>
           </div>
         </NavLink>
@@ -31,13 +47,24 @@ export default function Navbar() {
           <NavLink to="/pricing" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="hover:text-blue-600 transition-colors">Pricing</NavLink>
           <NavLink to="/contact" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="hover:text-blue-600 transition-colors">Support</NavLink>
         </div>
-        <motion.button 
-          whileHover={{ scale: 1.05 }} 
-          whileTap={{ scale: 0.95 }}
-          className="hidden md:block bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
-        >
-          Sign In
-        </motion.button>
+        
+        <div className="hidden md:block">
+          {currentUser ? (
+            // If user is logged in, show the new ProfileDropdown
+            <ProfileDropdown user={currentUser} handleSignOut={handleSignOut} />
+          ) : (
+            // If user is not logged in, show the Sign In button
+            <NavLink to="/login">
+              <motion.button 
+                whileHover={{ scale: 1.05 }} 
+                whileTap={{ scale: 0.95 }}
+                className="bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+              >
+                Sign In
+              </motion.button>
+            </NavLink>
+          )}
+        </div>
       </nav>
     </header>
   );

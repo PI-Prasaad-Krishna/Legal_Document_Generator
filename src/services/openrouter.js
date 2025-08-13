@@ -1,5 +1,5 @@
 // This is a placeholder for your actual OpenRouter API key
-const OPENROUTER_API_KEY = ""; 
+const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY; 
 const API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
 export async function generateDocument(prompt) {

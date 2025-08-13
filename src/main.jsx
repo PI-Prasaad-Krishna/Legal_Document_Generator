@@ -1,10 +1,15 @@
+// src/main.jsx
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.css'; // <-- Make sure this line is here and correct
+import App from './App.jsx';
+import './index.css';
+
+// Import Firebase config here to initialize it for the entire app
+import './config/firebase.js';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>
+  </React.StrictMode>,
 );

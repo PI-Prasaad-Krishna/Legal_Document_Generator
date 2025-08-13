@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -8,31 +9,38 @@ import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import PricingPage from './pages/PricingPage';
 import ContactPage from './pages/ContactPage';
-
-function PageRoutes() {
-  const location = useLocation();
-  return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/pricing" element={<PricingPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-      </Routes>
-    </AnimatePresence>
-  );
-}
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 
 export default function App() {
   return (
-    <Router>
-      <div className="bg-white text-slate-800 font-sans">
-        <Navbar />
-        <main>
-          <PageRoutes />
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="bg-white text-slate-800 font-sans">
+          <Navbar />
+          <main>
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/pricing" element={<PricingPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+
+              {/* Protected Route */}
+              <Route 
+                path="/" 
+                element={
+                  <ProtectedRoute>
+                    <HomePage />
+                  </ProtectedRoute>
+                } 
+              />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }

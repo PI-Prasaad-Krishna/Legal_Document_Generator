@@ -27,7 +27,10 @@ export default function HomePage() {
     setSelectedCategory(category);
     setShowGenerator(true);
     setTimeout(() => {
-        document.getElementById('documentGenerator').scrollIntoView({ behavior: 'smooth' });
+        const element = document.getElementById('documentCategories') || document.getElementById('documentGenerator');
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
     }, 100);
   };
 
@@ -73,10 +76,8 @@ export default function HomePage() {
   const handleDownloadPdf = () => {
     const element = document.getElementById('final-document-preview');
     
-    // Create a clone to apply styles without affecting the screen view
     const elementToPrint = element.cloneNode(true);
     
-    // Add a style tag to the clone to control page breaks
     const style = document.createElement('style');
     style.innerHTML = `
       h1, h2, h3 { page-break-after: avoid; }
@@ -102,12 +103,17 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl font-bold mb-6">Generate Professional Legal Documents</h1>
           <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">Create legally compliant documents in minutes with our AI-powered platform.</p>
-          <button onClick={() => setShowGenerator(true)} className="bg-white text-blue-700 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-lg shadow-lg">Start Generating Documents</button>
+          {/* --- THIS BUTTON IS NOW FUNCTIONAL --- */}
+          <button 
+            onClick={() => handleSelectCategory('')} 
+            className="bg-white text-blue-700 px-8 py-4 rounded-lg font-semibold text-lg shadow-xl transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:bg-gray-100">
+            Start Generating Documents
+          </button>
         </div>
       </section>
 
       {/* Document Categories */}
-      <section className="py-16 bg-white">
+      <section id="documentCategories" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Choose Your Document Type</h2>
