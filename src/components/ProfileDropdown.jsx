@@ -18,7 +18,7 @@ export default function ProfileDropdown({ user, handleSignOut }) {
 
     // This effect handles closing the dropdown when clicking outside of it
     useEffect(() => {
-        const handleClickOutside = (event) => {
+        const handleClickOutside = event => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsOpen(false);
             }
@@ -54,6 +54,8 @@ export default function ProfileDropdown({ user, handleSignOut }) {
                             <p className="text-sm text-gray-500 truncate">{user.email}</p>
                         </div>
                         <div className="py-2">
+                            {/* --- ADD THIS LINK --- */}
+                            <Link to="/my-documents" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Documents</Link>
                             <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Profile</Link>
                             <Link to="/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</Link>
                             <button

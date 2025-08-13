@@ -11,6 +11,7 @@ import PricingPage from './pages/PricingPage';
 import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import MyDocumentsPage from './pages/MyDocumentsPage'; // <-- 1. Import the new page
 
 export default function App() {
   return (
@@ -27,7 +28,16 @@ export default function App() {
               <Route path="/pricing" element={<PricingPage />} />
               <Route path="/contact" element={<ContactPage />} />
 
-              {/* Protected Route */}
+              {/* Protected Routes */}
+              <Route 
+                path="/my-documents"
+                element={
+                  <ProtectedRoute>
+                    <MyDocumentsPage />
+                  </ProtectedRoute>
+                }
+              /> {/* <-- 2. Add the new route */}
+
               <Route 
                 path="/" 
                 element={
