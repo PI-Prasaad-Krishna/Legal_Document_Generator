@@ -17,7 +17,7 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center space-x-3 mb-4">
               <LogoIcon />
-              <span className="text-lg font-bold">DocuGen AI</span>
+              <span className="text-lg font-bold">LexiGen AI</span>
             </div>
             <p className="text-gray-400 text-sm">AI-Powered legal document generation platform.</p>
           </div>
@@ -39,12 +39,12 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-gray-400">
-              <li>support@docugenai.com</li>
+              <li>support@lexigenai.com</li>
             </ul>
           </div>
         </div>
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-          <p>&copy; {new Date().getFullYear()} DocuGen AI. All rights reserved. This platform provides document templates for informational purposes only and does not constitute legal advice.</p>
+          <p>&copy; {new Date().getFullYear()} LexiGen AI. All rights reserved. This platform provides document templates for informational purposes only and does not constitute legal advice.</p>
         </div>
       </div>
     </footer>
