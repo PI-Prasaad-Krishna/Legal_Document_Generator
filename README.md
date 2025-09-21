@@ -90,6 +90,6 @@ To get a local copy up and running, follow these simple steps.
 ## 👥 The Team
 
 * [@PI-Prasaad-Krishna](https://github.com/PI-Prasaad-Krishna)
-* [@Risha-Jayaraj](https://github.com/Risha-Jayaraj)
+* [@Risha-Jayaraj]
 * [@aadityashah07](https://github.com/aadityashah07)
 * [@ashfaqhameeed](https://github.com/ashfaqhameeed)
